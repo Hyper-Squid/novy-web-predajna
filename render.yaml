@@ -2,6 +2,7 @@ services:
   - type: web
     name: ovocie-obchod
     runtime: python
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
@@ -10,8 +11,4 @@ services:
       - key: ADMIN_PASSWORD
         sync: false
       - key: DB_PATH
-        value: /var/data/shop.db
-    disk:
-      name: shop-data
-      mountPath: /var/data
-      sizeGB: 1
+        value: shop.db
