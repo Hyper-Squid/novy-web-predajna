@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ovocie-obchod
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DB_PATH
+        value: /var/data/shop.db
+    disk:
+      name: shop-data
+      mountPath: /var/data
+      sizeGB: 1
