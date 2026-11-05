@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Čerstvé ovocie a zelenina 🍎</h1>
+    <p>Najlepšie produkty za výhodné ceny.</p>
+</section>
+
+<form method="GET" class="filters">
+
+    <select name="category">
+        <option value="Všetko">Všetko</option>
+        <option value="Ovocie">Ovocie</option>
+        <option value="Zelenina">Zelenina</option>
+    </select>
+
+    <select name="sort">
+        <option value="name">Názov A-Z</option>
+        <option value="price_low">Najlacnejšie</option>
+        <option value="price_high">Najdrahšie</option>
+    </select>
+
+    <button type="submit">Zoradiť</button>
+
+</form>
+
+<div class="products">
+
+{% for product in products %}
+
+<div class="product">
+
+    <div class="emoji">
+        {% if product.category == "Ovocie" %}
+            🍎
+        {% else %}
+            🥕
+        {% endif %}
+    </div>
+
+    <h2>{{ product.name }}</h2>
+
+    <p>{{ product.description }}</p>
+
+    <p>{{ product.category }}</p>
+
+    <h3>{{ "%.2f"|format(product.price) }} € / kg</h3>
+
+    <form method="POST"
+    action="{{ url_for('add_cart', product_id=product.id) }}">
+
+        <button type="submit">Pridať do košíka</button>
+
+    </form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
