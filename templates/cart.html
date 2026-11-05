@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>🛒 Môj nákupný košík</h1>
+
+{% for product in products %}
+
+<div class="cart-item">
+
+    <div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ "%.2f"|format(product.price) }} € / kg</p>
+        <strong>
+            {{ "%.2f"|format(product.subtotal) }} €
+        </strong>
+    </div>
+
+    <form method="POST"
+    action="{{ url_for('update_cart', product_id=product.id) }}">
+
+        <input type="number"
+        name="quantity"
+        min="0"
+        max="99"
+        value="{{ product.quantity }}">
+
+        <button type="submit">Zmeniť</button>
+
+    </form>
+
+    <form method="POST"
+    action="{{ url_for('remove_cart', product_id=product.id) }}">
+
+        <button class="delete">Odstrániť</button>
+
+    </form>
+
+</div>
+
+{% else %}
+
+<p>Tvoj košík je prázdny.</p>
+
+{% endfor %}
+
+<h2>Celková cena: {{ "%.2f"|format(total) }} €</h2>
+
+<a href="/" class="button">Pokračovať v nákupe</a>
+
+{% endblock %}
