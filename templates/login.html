@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="login">
+
+    <h1>Admin prihlásenie</h1>
+
+    <form method="POST">
+
+        <input
+        type="password"
+        name="password"
+        placeholder="Admin heslo"
+        required>
+
+        <button type="submit">Prihlásiť sa</button>
+
+    </form>
+
+</div>
+
+{% endblock %}
